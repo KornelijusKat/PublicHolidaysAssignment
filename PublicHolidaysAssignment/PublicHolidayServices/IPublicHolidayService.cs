@@ -1,7 +1,11 @@
-﻿namespace PublicHolidaysAssignment.PublicHolidayServices
+﻿using PublicHolidaysAssignment.Models;
+
+namespace PublicHolidaysAssignment.PublicHolidayServices
 {
     public interface IPublicHolidayService
     {
-        string GetPublicHolidays(string year, string countryCode);
+        List<CountryHoliday> GetPublicHolidays(string year, string countryCode, string region);
+        DayStatus CheckDayStatus(string date, string country);
+        IEnumerable<SupportedCountry> GetSupportedCountryList();
     }
 }

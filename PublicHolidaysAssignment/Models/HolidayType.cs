@@ -10,8 +10,8 @@
         public int DayOfWeek { get; set; }
         public string Lang { get; set; }
         public string Text { get; set; }
-        public string LangEn { get; set; }
-        public string TextEn { get; set; }
+        public string? LangEn { get; set; }
+        public string? TextEn { get; set; }
         public string HolidayType { get; set; }
         public CountryHoliday()
         {
