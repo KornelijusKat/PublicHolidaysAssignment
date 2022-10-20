@@ -1,13 +1,13 @@
 ﻿using System.Collections;
+using System.ComponentModel.DataAnnotations;
 
 namespace PublicHolidaysAssignment.Models
 {
     public class Root
     {
-        public List<Date> Date { get; set; }
-        public List<Name> Name { get; set; }
-        public List<string> HolidayType { get; set; }
-
+        public Date date { get; set; }
+        public List<Name> name { get; set; }
+        public string holidayType { get; set; }
 
     }
 }
