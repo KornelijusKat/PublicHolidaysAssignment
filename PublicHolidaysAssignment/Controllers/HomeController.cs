@@ -1,10 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using PublicHolidaysAssignment.Models;
 using PublicHolidaysAssignment.PublicHolidayServices;
 
 namespace PublicHolidaysAssignment.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [Produces("application/json")]
     public class HomeController : Controller
     {
         public HttpClient Clienta = new HttpClient();
@@ -19,20 +23,19 @@ namespace PublicHolidaysAssignment.Controllers
         public IActionResult Index()
         {
             var Enrico = new EnricoApi(Clienta);
-            var result = Enrico.HttpClientExtension("getSupportedCountries");
-            return Ok(result.Result);
+            var listas = _publicHolidayService.GetSupportedCountryList();
+            return Ok(listas);
         }
         [HttpGet("GroupedListOfHolidays")]
-        public IActionResult Index1(string year, string country)
+        public IActionResult Index1(string year, string country, string? region)
         {
-            //var result = _enricoApiService.GetHolidaysOfGivenCountryAndYear(year,country);
-            var result = _publicHolidayService.GetPublicHolidays(year, country);
+            var result = _publicHolidayService.GetPublicHolidays(year, country, region);
             return Ok(result);
         }
         [HttpGet("IsDayHoliday")]
         public IActionResult Index2(string year, string country)
         {
-            var result = _enricoApiService.SpecificDayStatus(year.ToString(), country);
+            var result = _publicHolidayService.CheckDayStatus(year, country);
             return Ok(result);
         }
     }

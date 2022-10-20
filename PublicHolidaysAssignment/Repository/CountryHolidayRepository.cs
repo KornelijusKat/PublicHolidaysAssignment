@@ -10,14 +10,31 @@ namespace PublicHolidaysAssignment.Repository
         {
             _context = context;
         }
-        public void AddToDatabase(string body,string country)
+        public void AddToDatabase(string body,string country, string region)
         {
             var deserialized = JsonConvert.DeserializeObject<List<Root>>(body);
-            foreach (var item in deserialized)
+            if (region != null)
             {
-                var newCountry = new CountryHoliday() { CountryCode = country, Day = item.date.day, DayOfWeek = item.date.dayOfWeek, Year = item.date.year, Month = item.date.month, HolidayType = item.holidayType, Lang = item.name[0].lang, Text = item.name[0].text, LangEn = item.name[1].lang, TextEn = item.name[1].text };
-                _context.Holidays.Add(newCountry);
+                foreach (var item in deserialized)
+                {
+                    var newCountry = new CountryHoliday() { CountryCode = country, Day = item.date.day, DayOfWeek = item.date.dayOfWeek, Year = item.date.year, Month = item.date.month, HolidayType = item.holidayType, Lang = item.name[0].lang, Text = item.name[0].text };
+                    _context.Holidays.Add(newCountry);
+                }
             }
+            else
+            {
+                foreach (var item in deserialized)
+                {
+                    var newCountry = new CountryHoliday() { CountryCode = country, Day = item.date.day, DayOfWeek = item.date.dayOfWeek, Year = item.date.year, Month = item.date.month, HolidayType = item.holidayType, Lang = item.name[0].lang, Text = item.name[0].text, LangEn = item.name[1].lang, TextEn = item.name[1].text };
+                    _context.Holidays.Add(newCountry);
+                }
+            }
+            _context.SaveChanges();
+        }
+        public void AddToDayStatusDatabase(string date, string body, string country)
+        {
+            var newDay = new DayStatus() { CountryCode = country, TypeOfDay = body, Date = date };
+            _context.DayStatuses.Add(newDay);
             _context.SaveChanges();
         }
     }

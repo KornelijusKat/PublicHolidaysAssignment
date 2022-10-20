@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PublicHolidaysAssignment;
 
@@ -11,9 +12,10 @@ using PublicHolidaysAssignment;
 namespace PublicHolidaysAssignment.Migrations
 {
     [DbContext(typeof(HolidayDbContext))]
-    partial class HolidayDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221020084117_v6")]
+    partial class v6
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -47,6 +49,7 @@ namespace PublicHolidaysAssignment.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LangEn")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Month")
@@ -57,6 +60,7 @@ namespace PublicHolidaysAssignment.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TextEn")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Year")
