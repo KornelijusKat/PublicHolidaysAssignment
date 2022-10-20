@@ -1,11 +1,12 @@
-﻿namespace PublicHolidaysAssignment.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace PublicHolidaysAssignment.Models
 {
     public class Date
-    {
-        public string Day { get; set; }
-        public string Month { get; set; }
-        public string Year { get; set; }
-        public string DayOfTheWeek { get; set; }
-
+    { 
+        public int day { get; set; }
+        public int month { get; set; }
+        public int year { get; set; }
+        public int dayOfWeek { get; set; }
     }
 }

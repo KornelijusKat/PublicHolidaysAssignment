@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using PublicHolidaysAssignment.Models;
+using PublicHolidaysAssignment.Repository;
 using System.Diagnostics.Metrics;
 using System.Text.Json.Serialization;
 
@@ -9,10 +10,17 @@ namespace PublicHolidaysAssignment
     public class EnricoApiServices :IEnricoApiService
     {
         public HttpClient Client = new HttpClient();
+        private ICountryHolidayRepository _countryHolidayRepository;
+        public EnricoApiServices(ICountryHolidayRepository countryHolidayRepository)
+        {
+            _countryHolidayRepository = countryHolidayRepository;
+        }
+
         public Task<string> GetHolidaysOfGivenCountryAndYear(string year, string country)
         {
             var Enrico = new EnricoApi(Client);
             var result = Enrico.HttpClientExtension($"getHolidaysForYear&year={year}&country={country}&holidayType=public_holiday");
+            _countryHolidayRepository.AddToDatabase(result.Result, country);
             return result;
         }
         public string SpecificDayStatus(string date, string country)
