@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using PublicHolidaysAssignment.EnricoApi;
 using PublicHolidaysAssignment.Models;
 using PublicHolidaysAssignment.PublicHolidayServices;
 
@@ -22,7 +23,7 @@ namespace PublicHolidaysAssignment.Controllers
         [HttpGet("Hello")]
         public IActionResult Index()
         {
-            var Enrico = new EnricoApi(Clienta);
+            var Enrico = new EnricoApi.EnricoApi(Clienta);
             var listas = _publicHolidayService.GetSupportedCountryList();
             return Ok(listas);
         }

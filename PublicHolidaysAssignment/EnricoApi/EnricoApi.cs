@@ -1,6 +1,6 @@
 ﻿using static System.Net.WebRequestMethods;
 
-namespace PublicHolidaysAssignment
+namespace PublicHolidaysAssignment.EnricoApi
 {
     public class EnricoApi
     {

@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using PublicHolidaysAssignment.EnricoApi;
+using PublicHolidaysAssignment.Extensions;
 using PublicHolidaysAssignment.Models;
 using PublicHolidaysAssignment.Repository;
 using System.Diagnostics.Metrics;
@@ -62,8 +64,15 @@ namespace PublicHolidaysAssignment.PublicHolidayServices
         }
         public IEnumerable<SupportedCountry> GetSupportedCountryList()
         {
-            var result = _enricoApiService.GetSupportedCountries();
-            return result;
+            if (!_dbContext.Countries.Any())
+            {
+                var result = _enricoApiService.GetSupportedCountries();
+                _countryHolidayRepository.AddToCountriesDatabase(result);
+                
+                return result;
+            }
+            var queryResult = _dbContext.Countries.AsEnumerable();
+            return queryResult.maps();
         }
     }
 }

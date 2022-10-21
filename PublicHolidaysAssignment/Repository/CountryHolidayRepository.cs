@@ -37,5 +37,20 @@ namespace PublicHolidaysAssignment.Repository
             _context.DayStatuses.Add(newDay);
             _context.SaveChanges();
         }
+        public void AddToCountriesDatabase(List<SupportedCountry> supportedCountries)
+        {
+            foreach(var item in supportedCountries)
+            {
+                var newCountry = new Country() { countryCode = item.countryCode, fullName = item.fullName };
+                if (item.region != null)
+                {
+                    foreach (var region in item.region)
+                    {
+                        var newRegion = new Region() { CountryCode = item.countryCode, Name = region };
+                        newCountry.region.Add(newRegion);
+                    }
+                }
+            }
+        }
     }
 }

@@ -7,6 +7,7 @@ namespace PublicHolidaysAssignment
     {
         public DbSet<CountryHoliday> Holidays  { get; set; }
         public DbSet<DayStatus> DayStatuses { get; set; }
+        public DbSet<Country> Countries { get; set; }
         public HolidayDbContext(DbContextOptions<HolidayDbContext> options) : base(options)
         { 
 

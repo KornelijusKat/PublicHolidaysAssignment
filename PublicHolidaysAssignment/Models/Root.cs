@@ -8,6 +8,5 @@ namespace PublicHolidaysAssignment.Models
         public Date date { get; set; }
         public List<Name> name { get; set; }
         public string holidayType { get; set; }
-
     }
 }
