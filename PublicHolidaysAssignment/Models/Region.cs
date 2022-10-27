@@ -1,12 +1,11 @@
 ﻿namespace PublicHolidaysAssignment.Models
 {
-    public class DayStatus
+    public class Region
     {
         public Guid Id { get; set; }
-        public DateTime Date { get; set; }
-        public string TypeOfDay { get; set; }
+        public string Name { get; set; } 
         public string CountryCode { get; set; }
-        public DayStatus()
+        public Region()
         {
             Id = Guid.NewGuid();
         }

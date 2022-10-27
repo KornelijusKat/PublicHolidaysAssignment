@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using PublicHolidaysAssignment.EnricoApi;
 using PublicHolidaysAssignment.PublicHolidayServices;
 using PublicHolidaysAssignment.Repository;
 
@@ -11,9 +12,7 @@ namespace PublicHolidaysAssignment
         {
     
         var builder = WebApplication.CreateBuilder(args);
-
             // Add services to the container.
-
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
@@ -22,8 +21,8 @@ namespace PublicHolidaysAssignment
             builder.Services.AddScoped<IEnricoApiService, EnricoApiServices>();
             builder.Services.AddScoped<ICountryHolidayRepository, CountryHolidayRepository>();
             builder.Services.AddScoped<IPublicHolidayService, PublicHolidayService>();
+            builder.Services.AddScoped<HttpClient>();
             var app = builder.Build();
-
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {

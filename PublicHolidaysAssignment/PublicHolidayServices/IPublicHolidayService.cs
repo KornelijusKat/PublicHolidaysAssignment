@@ -1,11 +1,14 @@
-﻿using PublicHolidaysAssignment.Models;
+﻿using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
+using PublicHolidaysAssignment.ModelDtos;
+using PublicHolidaysAssignment.Models;
 
 namespace PublicHolidaysAssignment.PublicHolidayServices
 {
     public interface IPublicHolidayService
     {
-        List<CountryHoliday> GetPublicHolidays(string year, string countryCode, string region);
-        DayStatus CheckDayStatus(string date, string country);
-        IEnumerable<SupportedCountry> GetSupportedCountryList();
+        ResponseDto<CountryHoliday> GetPublicHolidays(string year, string countryCode, string region);
+        ResponseDto<DayStatus> CheckDayStatus(DateTime date, string country);
+        ResponseDto<SupportedCountry> GetSupportedCountryList();
+        ResponseDto<int> GetConsecutive(string country,string year, string region);
     }
 }
