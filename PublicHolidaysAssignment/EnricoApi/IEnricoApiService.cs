@@ -1,11 +1,12 @@
-﻿using PublicHolidaysAssignment.Models;
+﻿using PublicHolidaysAssignment.ModelDtos;
+using PublicHolidaysAssignment.Models;
 
 namespace PublicHolidaysAssignment.EnricoApi
 {
     public interface IEnricoApiService
     {
-        Task<string> GetHolidaysOfGivenCountryAndYear(string year, string country, string region);
-        string SpecificDayStatus(string date, string country);
+        ResponseDto<CountryHoliday> GetHolidaysOfGivenCountryAndYear(string year, string country, string region);
+        ResponseDto<string> SpecificDayStatus(DateTime date, string country);
         List<SupportedCountry> GetSupportedCountries();
     }
 }

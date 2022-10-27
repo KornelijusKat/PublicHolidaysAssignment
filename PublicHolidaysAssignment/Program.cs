@@ -21,6 +21,7 @@ namespace PublicHolidaysAssignment
             builder.Services.AddScoped<IEnricoApiService, EnricoApiServices>();
             builder.Services.AddScoped<ICountryHolidayRepository, CountryHolidayRepository>();
             builder.Services.AddScoped<IPublicHolidayService, PublicHolidayService>();
+            builder.Services.AddScoped<HttpClient>();
             var app = builder.Build();
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())

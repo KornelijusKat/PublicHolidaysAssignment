@@ -1,4 +1,5 @@
-﻿using static System.Net.WebRequestMethods;
+﻿using Microsoft.AspNetCore.Mvc;
+using static System.Net.WebRequestMethods;
 
 namespace PublicHolidaysAssignment.EnricoApi
 {
@@ -25,7 +26,7 @@ namespace PublicHolidaysAssignment.EnricoApi
             }
             catch (Exception e)
             {
-                throw new Exception(e.Message);
+                return e.Message;
             }
         }
     }

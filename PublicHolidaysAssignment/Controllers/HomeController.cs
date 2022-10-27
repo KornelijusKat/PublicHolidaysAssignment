@@ -20,23 +20,33 @@ namespace PublicHolidaysAssignment.Controllers
             _enricoApiService = enricoApiService;
             _publicHolidayService = publicHolidayService;
         }
-        [HttpGet("Hello")]
+        [HttpGet("GetCountryList")]
         public IActionResult Index()
         {
             var Enrico = new EnricoApi.EnricoApi(Clienta);
             var listas = _publicHolidayService.GetSupportedCountryList();
+            if (!listas.IsSuccess)
+                return BadRequest(listas.Message);
             return Ok(listas);
         }
         [HttpGet("GroupedListOfHolidays")]
         public IActionResult Index1(string year, string country, string? region)
-        {
+        {     
             var result = _publicHolidayService.GetPublicHolidays(year, country, region);
-            return Ok(result);
+            if(!result.IsSuccess)
+                return BadRequest(result.Message);
+            return Ok(result);   
         }
         [HttpGet("IsDayHoliday")]
-        public IActionResult Index2(string year, string country)
+        public IActionResult Index2(DateTime year, string country)
         {
             var result = _publicHolidayService.CheckDayStatus(year, country);
+            return Ok(result);
+        }
+        [HttpGet("LongestDayOffSequence")]
+        public IActionResult Index3(string country,string year, string? region)
+        {
+            var result = _publicHolidayService.GetConsecutive(country,year,region);
             return Ok(result);
         }
     }
