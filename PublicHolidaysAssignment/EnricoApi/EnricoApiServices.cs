@@ -3,8 +3,6 @@ using Newtonsoft.Json.Linq;
 using PublicHolidaysAssignment.ModelDtos;
 using PublicHolidaysAssignment.Models;
 using PublicHolidaysAssignment.Repository;
-using System.Diagnostics.Metrics;
-using System.Text.Json.Serialization;
 
 namespace PublicHolidaysAssignment.EnricoApi
 {
@@ -40,8 +38,9 @@ namespace PublicHolidaysAssignment.EnricoApi
         public ResponseDto<CountryHoliday> GetHolidaysOfGivenCountryAndYear(string year, string country, string region)
         {
             var Enrico = new EnricoApi(Client);
+            var countriesWithRegions = new string[] { "nzl", "aus", "can", "usa", "us", "deu", "de", "gbr", "gb" };
             var uriEnding = $"getHolidaysForYear&year={year}&country={country}&holidayType=public_holiday";
-            if (region != null)
+            if (countriesWithRegions.Contains(country))
             {
                 uriEnding = $"getHolidaysForYear&year={year}&country={country}&region={region}&holidayType=public_holiday";
             }
@@ -73,22 +72,14 @@ namespace PublicHolidaysAssignment.EnricoApi
                     var sa = thatsa.ToObject<bool>();
                     if (!sa)
                     {
-                        _countryHolidayRepository.AddToDayStatusDatabase(date, "Free day", country);
                         return new ResponseDto<string>() { Message = "Free day" };
                     }
                     else
                     {
-                        _countryHolidayRepository.AddToDayStatusDatabase(date, "Work day", country);
                         return new ResponseDto<string>() { Message = "Work day" };
                     }
                 }
-                _countryHolidayRepository.AddToDayStatusDatabase(date, "Public ", country);
-                return new ResponseDto<string>() { Message = "Public holiday" };
-            
-        }
-        public void GetMaxConsecutiveDayOff()
-        {
-
+                return new ResponseDto<string>() { Message = "Public holiday" };       
         }
     }
 }

@@ -12,5 +12,9 @@ namespace PublicHolidaysAssignment
         { 
 
         }
+        public HolidayDbContext()
+        {
+
+        }
     }
 }

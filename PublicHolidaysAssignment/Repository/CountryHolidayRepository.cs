@@ -1,5 +1,7 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using PublicHolidaysAssignment.Models;
+using System.Diagnostics.Metrics;
 using System.Globalization;
 
 namespace PublicHolidaysAssignment.Repository
@@ -61,6 +63,26 @@ namespace PublicHolidaysAssignment.Repository
                 _context.Countries.Add(newCountry);
             }
             _context.SaveChanges();
+        }
+        public DayStatus QueryDayRecord(string country, DateTime date)
+        {
+            return _context.DayStatuses.FirstOrDefault(x => (x.CountryCode == country) && (x.Date == date));
+        }
+        public bool QueryIfAnyRecordExists()
+        {
+            return _context.Countries.Any();
+        }
+        public IEnumerable<CountryHoliday> GetOrderedList(string countryCode, string year, string region)
+        {
+            return _context.Holidays.Where(x => (x.CountryCode == countryCode) && (x.Date.Year == int.Parse(year)) && (x.Region == region)).ToList().OrderBy(x => x.Date);
+        }
+        public CountryHoliday QueryIfCountryHolidayExists(string country, string year, string region)
+        {
+            return _context.Holidays.FirstOrDefault(x => (x.CountryCode == country) && (x.Date.Year == int.Parse(year)) && (x.Region == region));
+        }
+        public IEnumerable<Country> GetSupportedCountriesAndTheirRegions()
+        {
+            return _context.Countries.Include(x => x.region).AsEnumerable(); 
         }
     }
 }
