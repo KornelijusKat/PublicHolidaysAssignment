@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualBasic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using PublicHolidaysAssignment.EnricoApi;
 using PublicHolidaysAssignment.Models;
 using PublicHolidaysAssignment.PublicHolidayServices;
+using PublicHolidaysAssignment.RequestModels;
 
 namespace PublicHolidaysAssignment.Controllers
 {
@@ -29,10 +31,10 @@ namespace PublicHolidaysAssignment.Controllers
                 return BadRequest(listas.Message);
             return Ok(listas);
         }
-        [HttpGet("GroupedListOfHolidays")]
-        public IActionResult Index1(string year, string country, string? region)
-        {     
-            var result = _publicHolidayService.GetPublicHolidays(year, country, region);
+        [HttpPost("GroupedListOfHolidays")]
+        public IActionResult Index1([FromQuery]YearRequest syear, string country, string? region)
+        {
+            var result = _publicHolidayService.GetPublicHolidays(syear.Year, country, region);
             if(!result.IsSuccess)
                 return BadRequest(result.Message);
             return Ok(result);   
